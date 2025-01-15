@@ -14,7 +14,9 @@ echo $SOURCE
 ecbuild $SOURCE/test_project -B $HERE/build
 
 # Run only one specific test (which should invoke the others)
-ctest --test-dir $HERE/build -R write_world_after_hello
+cd $HERE/build  # Avoid using --test-dir option in ctest
+ctest -R write_world_after_hello
+cd $HERE
 
 # Check if the output is as expected
 echo -n "Hello, World!" | diff - $HERE/build/output.txt
